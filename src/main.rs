@@ -33,6 +33,7 @@ impl Config {
 
 fn grep(reader: &mut BufReader<File>, pattern: &str, case_sensitivity: bool) {
     let mut line = String::new();
+    let mut i = 0;
 
     while let Ok(bytes_read) = reader.read_line(&mut line) {
         if bytes_read == 0 {
@@ -46,8 +47,9 @@ fn grep(reader: &mut BufReader<File>, pattern: &str, case_sensitivity: bool) {
             matched = line.contains(&pattern);
         }
 
+        i += 1;
         if matched {
-            println!("{}", line);
+            println!("{i}: {}", line);
         }
 
         line.clear();
