@@ -59,9 +59,11 @@ fn grep(reader: &mut BufReader<File>, pattern: &str, case_sensitivity: bool, lin
             continue;
         }
 
-        if stripe_ws {
-            line = line.trim().to_string();
-        }
+        line = if stripe_ws {
+            line.trim().to_string()
+        } else {
+            line.trim_end().to_string()
+        }; 
 
         if line_number {
             let new_prefix = format!("{}: ", i);
